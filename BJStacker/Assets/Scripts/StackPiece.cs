@@ -32,8 +32,6 @@ public class StackPiece : MonoBehaviour
 
         body.isKinematic = true;
         body.useGravity = false;
-        body.linearVelocity = Vector3.zero;
-        body.angularVelocity = Vector3.zero;
         ApplyLeanConstraints();
     }
 
@@ -43,9 +41,10 @@ public class StackPiece : MonoBehaviour
         IsPlaced = false;
         settledTimer = 0f;
 
-        // Set the states for the piece to be dropped
         body.isKinematic = false;
         body.useGravity = true;
+        body.linearVelocity = Vector3.zero;
+        body.angularVelocity = Vector3.zero;
         body.constraints = RigidbodyConstraints.None;
         ApplyLeanConstraints();
         StartCoroutine(WaitUntilSettled());

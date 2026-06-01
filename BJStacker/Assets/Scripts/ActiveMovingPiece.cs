@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // Oscillates along X until the player left-clicks, then drops straight down via physics.
 [RequireComponent(typeof(StackPiece))]
@@ -30,8 +31,7 @@ public class ActiveMovingPiece : MonoBehaviour
         if (isDropping || StackGameController.Instance == null || StackGameController.Instance.IsGameOver)
             return;
 
-        // If the left mouse button is clicked, drop the piece
-        if (Input.GetMouseButtonDown(0))
+        if (WasDropPressedThisFrame())
             Drop();
 
         // If the piece is not dropping, move it side to side
@@ -58,6 +58,16 @@ public class ActiveMovingPiece : MonoBehaviour
         }
 
         transform.position = position;
+    }
+
+    static bool WasDropPressedThisFrame()
+    {
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            return true;
+
+        // Touch / pen fallback when no mouse
+        return Touchscreen.current != null
+            && Touchscreen.current.primaryTouch.press.wasPressedThisFrame;
     }
 
     void Drop()
