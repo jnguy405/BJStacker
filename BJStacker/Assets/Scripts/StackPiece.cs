@@ -69,10 +69,15 @@ public class StackPiece : MonoBehaviour
             // Check if the piece is slow enough to be settled
             bool slowEnough = body.linearVelocity.magnitude <= SettleVelocityThreshold
                 && body.angularVelocity.magnitude <= SettleVelocityThreshold;
+            
 
             // If the piece is slow enough, increment the settled timer
             if (slowEnough)
             {
+                Debug.Log("Piece Frozen");
+                body.linearVelocity = Vector3.zero;
+                body.angularVelocity = Vector3.zero;
+                body.constraints = RigidbodyConstraints.FreezePositionX;                
                 settledTimer += Time.deltaTime;
                 if (settledTimer >= SettleTimeRequired)
                 {
