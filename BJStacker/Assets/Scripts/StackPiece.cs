@@ -8,6 +8,7 @@ public class StackPiece : MonoBehaviour
 {
     const float SettleVelocityThreshold = 0.08f;
     const float SettleTimeRequired = 0.35f;
+    const float MaxTiltDegreesThreshold = 10f;
 
     public bool IsPlaced { get; private set; }
 
@@ -23,6 +24,13 @@ public class StackPiece : MonoBehaviour
         // If the piece collider is not found, get the collider component from the children
         if (pieceCollider == null)
             pieceCollider = GetComponentInChildren<Collider>();
+    }
+    void Update()
+    {
+        if(IsPlaced && GetMaxTiltDegrees() >= MaxTiltDegreesThreshold)
+        {
+            body.constraints = RigidbodyConstraints.None;
+        } 
     }
 
     public void PrepareForMovement()
@@ -73,15 +81,15 @@ public class StackPiece : MonoBehaviour
 
             // If the piece is slow enough, increment the settled timer
             if (slowEnough)
-            {
-                Debug.Log("Piece Frozen");
-                body.linearVelocity = Vector3.zero;
-                body.angularVelocity = Vector3.zero;
-                body.constraints = RigidbodyConstraints.FreezePositionX;                
+            {                               
                 settledTimer += Time.deltaTime;
                 if (settledTimer >= SettleTimeRequired)
                 {
                     IsPlaced = true;
+                    Debug.Log("Piece Frozen");
+                    body.linearVelocity = Vector3.zero;
+                    body.angularVelocity = Vector3.zero;
+                    body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ; 
                     // Notify the game controller that the piece is settled
                     StackGameController.Instance?.OnPieceSettled(this);
                     yield break;
