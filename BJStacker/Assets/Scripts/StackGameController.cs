@@ -80,9 +80,8 @@ public class StackGameController : MonoBehaviour
             return;
         }
 
-        // Increment the stack count
         StackCount++;
-        // Update the highest stack Y
+        DifficultyManager.Instance?.OnPieceSuccessfullyPlaced();
         UpdateHighestStackY(piece);
         activePiece = null;
         BeginNextPiece();
