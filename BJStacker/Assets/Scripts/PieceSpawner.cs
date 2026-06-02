@@ -25,7 +25,7 @@ public class PieceSpawner : MonoBehaviour
         }
 
         // Get the next prefab
-        GameObject prefab = piecePrefabs[nextPrefabIndex];
+        GameObject prefab = piecePrefabs[nextPrefabIndex]; // Random.Range(0,piecePrefabs.Length) for random drops
         nextPrefabIndex = (nextPrefabIndex + 1) % piecePrefabs.Length;
 
         // Instantiate the prefab
