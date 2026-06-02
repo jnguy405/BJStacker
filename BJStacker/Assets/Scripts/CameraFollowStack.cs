@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraFollowStack : MonoBehaviour
 {
     [SerializeField] float followSmoothing = 3f;
-    [SerializeField] float heightOffset = 4f;
+    [SerializeField] float heightOffset = 2f;
     [SerializeField] Vector3 localOffset = new Vector3(0f, 2f, -10f);
 
     void LateUpdate()
