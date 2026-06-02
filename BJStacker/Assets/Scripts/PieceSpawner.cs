@@ -37,7 +37,8 @@ public class PieceSpawner : MonoBehaviour
             mover = instance.AddComponent<ActiveMovingPiece>();
 
         // Configure the ActiveMovingPiece component
-        mover.Configure(moveLimitX, moveSpeed);
+        float speed = DifficultyManager.Instance != null ? DifficultyManager.Instance.CurrentSpeed : moveSpeed;
+        mover.Configure(moveLimitX, speed);
 
         var piece = instance.GetComponent<StackPiece>();
         // If the StackPiece component is not found, add it
