@@ -3,6 +3,8 @@ using UnityEngine;
 // Instantiates stack piece prefabs in sequence.
 public class PieceSpawner : MonoBehaviour
 {
+    public static PieceSpawner Instance { get; private set; }
+
     [Header("References")]
     [SerializeField] GameObject[] piecePrefabs;
 
@@ -12,8 +14,18 @@ public class PieceSpawner : MonoBehaviour
 
     public float MoveLimitX => moveLimitX;
 
-    // State: next prefab index
     int nextPrefabIndex;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(this); return; }
+        Instance = this;
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
 
     public GameObject SpawnPiece(Vector3 position)
     {
@@ -28,8 +40,11 @@ public class PieceSpawner : MonoBehaviour
         GameObject prefab = piecePrefabs[nextPrefabIndex]; // Random.Range(0,piecePrefabs.Length) for random drops
         nextPrefabIndex = (nextPrefabIndex + 1) % piecePrefabs.Length;
 
-        // Instantiate the prefab
-        GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+        // Randomize spawn X so drops aren't predictable at center
+        Vector3 spawnPosition = position;
+        spawnPosition.x = Random.Range(-moveLimitX, moveLimitX);
+
+        GameObject instance = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
         var mover = instance.GetComponent<ActiveMovingPiece>();
         // If the ActiveMovingPiece component is not found, add it

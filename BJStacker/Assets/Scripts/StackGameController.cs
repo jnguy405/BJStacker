@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utilities;
 
 // Runs the stack loop: spawn → move → drop → settle → score or game over.
 public class StackGameController : MonoBehaviour
@@ -12,6 +13,9 @@ public class StackGameController : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] float spawnHeightAboveStack = 2f;
 
+    [Header("Timer")]
+    [SerializeField] float gameDurationSeconds = 30f;
+
     [Header("Game Over")]
     [SerializeField] float fallKillY = -2f;
     [SerializeField] float maxStackTiltDegrees = 55f;
@@ -20,10 +24,12 @@ public class StackGameController : MonoBehaviour
     public int StackCount { get; private set; }
     public bool IsGameOver { get; private set; }
     public float HighestStackY => highestStackY;
+    public int RemainingSeconds => gameTimer?.RemainingSeconds ?? 0;
     public Transform StackBase => stackBase;
 
     PieceSpawner pieceSpawner;
-    
+    Timer gameTimer;
+
     float highestStackY;
     ActiveMovingPiece activePiece;
     Coroutine stackMonitorRoutine;
@@ -49,9 +55,22 @@ public class StackGameController : MonoBehaviour
         else
             highestStackY = 0f;
 
+        gameTimer = new Timer(gameDurationSeconds);
+        gameTimer.Start();
+
         // Begin the next piece
         BeginNextPiece();
         stackMonitorRoutine = StartCoroutine(MonitorStackRoutine());
+    }
+
+    void Update()
+    {
+        if (IsGameOver || gameTimer == null || !gameTimer.IsRunning)
+            return;
+
+        gameTimer.Tick(Time.deltaTime);
+        if (gameTimer.IsFinished)
+            EndGame("Time's up!");
     }
 
     void OnDestroy()
@@ -82,6 +101,7 @@ public class StackGameController : MonoBehaviour
 
         StackCount++;
         DifficultyManager.Instance?.OnPieceSuccessfullyPlaced();
+        AlignmentScorer.Instance?.OnPieceSettled(piece);
         UpdateHighestStackY(piece);
         activePiece = null;
         BeginNextPiece();
