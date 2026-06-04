@@ -3,6 +3,8 @@ using UnityEngine;
 // Instantiates stack piece prefabs in sequence.
 public class PieceSpawner : MonoBehaviour
 {
+    public static PieceSpawner Instance { get; private set; }
+
     [Header("References")]
     [SerializeField] GameObject[] piecePrefabs;
 
@@ -12,8 +14,18 @@ public class PieceSpawner : MonoBehaviour
 
     public float MoveLimitX => moveLimitX;
 
-    // State: next prefab index
     int nextPrefabIndex;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(this); return; }
+        Instance = this;
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
 
     public GameObject SpawnPiece(Vector3 position)
     {
