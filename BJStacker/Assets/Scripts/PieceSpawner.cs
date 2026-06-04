@@ -28,8 +28,11 @@ public class PieceSpawner : MonoBehaviour
         GameObject prefab = piecePrefabs[nextPrefabIndex]; // Random.Range(0,piecePrefabs.Length) for random drops
         nextPrefabIndex = (nextPrefabIndex + 1) % piecePrefabs.Length;
 
-        // Instantiate the prefab
-        GameObject instance = Instantiate(prefab, position, Quaternion.identity);
+        // Randomize spawn X so drops aren't predictable at center
+        Vector3 spawnPosition = position;
+        spawnPosition.x = Random.Range(-moveLimitX, moveLimitX);
+
+        GameObject instance = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
         var mover = instance.GetComponent<ActiveMovingPiece>();
         // If the ActiveMovingPiece component is not found, add it
