@@ -82,6 +82,7 @@ public class StackGameController : MonoBehaviour
 
         StackCount++;
         DifficultyManager.Instance?.OnPieceSuccessfullyPlaced();
+        AlignmentScorer.Instance?.OnPieceSettled(piece);
         UpdateHighestStackY(piece);
         activePiece = null;
         BeginNextPiece();
