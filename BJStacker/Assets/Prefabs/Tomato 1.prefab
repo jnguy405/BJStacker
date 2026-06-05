@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1798622324936260285}
   - component: {fileID: 2286988022590548416}
   - component: {fileID: 5467886503480248602}
-  - component: {fileID: 612551953411138429}
+  - component: {fileID: 8711755845362261556}
   m_Layer: 0
   m_Name: Tomato 1
   m_TagString: Untagged
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2c05cd14690b64eb8552065567e54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackPiece
---- !u!65 &612551953411138429
+--- !u!65 &8711755845362261556
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,8 +93,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5906911, y: 0.081863165, z: 1.4385033}
-  m_Center: {x: 0.36620927, y: 0.069735646, z: 0.32428885}
+  m_Size: {x: 1.767067, y: 0.08, z: 1.767067}
+  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &7270439954434577368
 GameObject:
   m_ObjectHideFlags: 0
