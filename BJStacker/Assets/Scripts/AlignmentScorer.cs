@@ -28,6 +28,12 @@ public class AlignmentScorer : MonoBehaviour
         if (Instance == this)
             Instance = null;
     }
+    void Start()
+    {
+        TotalPoints = 0;
+        perfectStreak = 0;
+        excellentStreak = 0;
+    }
 
     public void OnPieceSettled(StackPiece piece)
     {
