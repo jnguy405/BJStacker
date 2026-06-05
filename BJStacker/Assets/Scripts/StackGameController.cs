@@ -20,6 +20,7 @@ public class StackGameController : MonoBehaviour
     [SerializeField] float fallKillY = -15f;
     [SerializeField] float maxStackTiltDegrees = 55f;
     [SerializeField] float stackCheckInterval = 0.25f;
+    [SerializeField] GameObject BurgerTop;
 
     public int StackCount { get; private set; }
     public bool IsGameOver { get; private set; }
@@ -70,6 +71,7 @@ public class StackGameController : MonoBehaviour
 
         gameTimer.Tick(Time.deltaTime);
         if (gameTimer.IsFinished)
+            // let the burger top fall for visual effect
             EndGame("Time's up!");
     }
 
@@ -212,13 +214,20 @@ public class StackGameController : MonoBehaviour
             StopCoroutine(stackMonitorRoutine);
         
         if(reason == "Time's up!"){ // time up player survived and wins
-             GetComponent<SceneChanger>().ChangeScene(4);
-             return;
-        }
+            BurgerTop.GetComponent<Rigidbody>().useGravity = true;
+            // small delay before showing end screen
+            StartCoroutine(EndGameRoutine());
+         }
         else // game ended cause player stack fell or missed drop 
         {
             GetComponent<SceneChanger>().ChangeScene(3);
         }
         
     }
+        IEnumerator EndGameRoutine()
+        {
+            BurgerTop.GetComponent<Rigidbody>().useGravity = true;
+            yield return new WaitForSeconds(2f);
+            GetComponent<SceneChanger>().ChangeScene(4);
+        }
 }
