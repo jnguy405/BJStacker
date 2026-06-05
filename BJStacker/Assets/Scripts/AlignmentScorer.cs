@@ -3,7 +3,8 @@ using UnityEngine;
 public class AlignmentScorer : MonoBehaviour
 {
     public static AlignmentScorer Instance { get; private set; }
- 
+
+    [SerializeField] AlignmentUI alignmentUI;
 
     Vector2 lastReferenceXZ;
     bool hasReference;
@@ -56,12 +57,12 @@ public class AlignmentScorer : MonoBehaviour
         float score = Mathf.Clamp01(1f - (offset / halfWidth)) * 100f;
         string rating = GetRating(score);
 
-        if (rating == "Perfect")
+        if (rating == "PERFECT!!!")
         {
             perfectStreak++;
             excellentStreak = 0;
         }
-        else if (rating == "Excellent")
+        else if (rating == "Excellent!")
         {
             excellentStreak++;
             perfectStreak = 0;
@@ -79,32 +80,35 @@ public class AlignmentScorer : MonoBehaviour
         int points = Mathf.RoundToInt(GetPoints(rating) * multiplier);
         TotalPoints += points;
 
-        string comboText = multiplier > 1f ? $" x{multiplier} COMBO" : "";
-        Debug.Log($"Piece {controller.StackCount} alignment: {score:F1}% — {rating} (+{points}){comboText} | Total: {TotalPoints}");
+        string comboLog = multiplier > 1f ? $" x{multiplier} COMBO" : "";
+        Debug.Log($"Piece {controller.StackCount} alignment: {score:F1}% — {rating} (+{points}){comboLog} | Total: {TotalPoints}");
+
+        int streak = perfectStreak > 0 ? perfectStreak : excellentStreak;
+        alignmentUI?.UpdateUI(rating, points, multiplier, TotalPoints, streak);
 
         lastReferenceXZ = pieceXZ;
     }
 
     string GetRating(float score)
     {
-        if (score >= 99f) return "Perfect";
-        if (score >= 90f) return "Excellent";
+        if (score >= 99f) return "PERFECT!!!";
+        if (score >= 90f) return "Excellent!";
         if (score >= 75f) return "Good";
-        if (score >= 51f) return "Okay";
-        if (score >= 25f) return "Bad";
-        return "Terrible";
+        if (score >= 51f) return "okay";
+        if (score >= 25f) return "bad.";
+        return "terrible...";
     }
 
     int GetPoints(string rating)
     {
         switch (rating)
         {
-            case "Perfect":   return 200;
-            case "Excellent": return 100;
-            case "Good":      return 75;
-            case "Okay":      return 50;
-            case "Bad":       return 25;
-            default:          return 10;
+            case "PERFECT!!!":  return 200;
+            case "Excellent!":  return 100;
+            case "Good":        return 75;
+            case "okay":        return 50;
+            case "bad.":        return 25;
+            default:            return 10;
         }
     }
 }
