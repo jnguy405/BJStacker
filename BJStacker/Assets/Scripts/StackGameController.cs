@@ -173,7 +173,7 @@ public class StackGameController : MonoBehaviour
         foreach (var piece in pieces)
         {
               // If the piece is below the fall kill Y, return true
-            Debug.Log("Piece Y: " + piece.transform.position.y + " vs Kill Y: " + fallKillY);
+            
             if (piece.transform.position.y < fallKillY){
             Debug.Log("Piece below kill Y");
                 return true;
@@ -211,6 +211,14 @@ public class StackGameController : MonoBehaviour
         if (stackMonitorRoutine != null)
             StopCoroutine(stackMonitorRoutine);
         
-        GetComponent<SceneChanger>().ChangeScene(3);
+        if(reason == "Time's up!"){ // time up player survived and wins
+             GetComponent<SceneChanger>().ChangeScene(4);
+             return;
+        }
+        else // game ended cause player stack fell or missed drop 
+        {
+            GetComponent<SceneChanger>().ChangeScene(3);
+        }
+        
     }
 }
