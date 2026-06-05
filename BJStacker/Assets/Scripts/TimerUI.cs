@@ -1,10 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
-// Optional UI label showing the countdown timer. Assign a Text in the inspector.
 public class TimerUI : MonoBehaviour
 {
-    [SerializeField] Text timerLabel;
+    [SerializeField] TMP_Text timerLabel;
 
     void Update()
     {
