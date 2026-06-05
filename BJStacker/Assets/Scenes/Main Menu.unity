@@ -259,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3982543000409354207, guid: 93fa83a4571967b44a5868eef9dc45f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.33
+      value: 5.59
       objectReference: {fileID: 0}
     - target: {fileID: 3982543000409354207, guid: 93fa83a4571967b44a5868eef9dc45f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -608,7 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285362496601521869, guid: 3e5570eda4bfd2d47a487ce6faa88b15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.16
+      value: 3.69
       objectReference: {fileID: 0}
     - target: {fileID: 4285362496601521869, guid: 3e5570eda4bfd2d47a487ce6faa88b15, type: 3}
       propertyPath: m_LocalPosition.z
@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1839825225703959377, guid: 71c2f8a557de99f4c95707744458f0e6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.69
+      value: 24.68
       objectReference: {fileID: 0}
     - target: {fileID: 1839825225703959377, guid: 71c2f8a557de99f4c95707744458f0e6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1781,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1798622324936260285, guid: 3871fb247432f6649a97a66e05972e87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6799998
+      value: 5.03
       objectReference: {fileID: 0}
     - target: {fileID: 1798622324936260285, guid: 3871fb247432f6649a97a66e05972e87, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2318,6 +2318,7 @@ GameObject:
   - component: {fileID: 2098909891}
   - component: {fileID: 2098909893}
   - component: {fileID: 2098909892}
+  - component: {fileID: 2098909894}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -2382,6 +2383,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098909890}
   m_CullTransparentMesh: 1
+--- !u!114 &2098909894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098909890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.37254903}
+  m_EffectDistance: {x: 2, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2140901873
 GameObject:
   m_ObjectHideFlags: 0

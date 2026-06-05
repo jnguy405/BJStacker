@@ -17,7 +17,7 @@ public class StackGameController : MonoBehaviour
     [SerializeField] float gameDurationSeconds = 30f;
 
     [Header("Game Over")]
-    [SerializeField] float fallKillY = -2f;
+    [SerializeField] float fallKillY = -15f;
     [SerializeField] float maxStackTiltDegrees = 55f;
     [SerializeField] float stackCheckInterval = 0.25f;
 
@@ -172,13 +172,17 @@ public class StackGameController : MonoBehaviour
         var pieces = FindObjectsByType<StackPiece>(FindObjectsSortMode.None);
         foreach (var piece in pieces)
         {
+              // If the piece is below the fall kill Y, return true
+            Debug.Log("Piece Y: " + piece.transform.position.y + " vs Kill Y: " + fallKillY);
+            if (piece.transform.position.y < fallKillY){
+            Debug.Log("Piece below kill Y");
+                return true;
+            }
             // If the piece is not placed, continue
             if (!piece.IsPlaced)
                 continue;
 
-            // If the piece is below the fall kill Y, return true
-            if (piece.transform.position.y < fallKillY)
-                return true;
+          
 
             // If the piece is tilted more than the max stack tilt degrees, return true
             float tilt = piece.GetMaxTiltDegrees();
@@ -192,9 +196,10 @@ public class StackGameController : MonoBehaviour
     public void EndGame(string reason)
     {
         // If the game is already over, return
-        if (IsGameOver)
+        if (IsGameOver) 
             return;
-
+        
+       
         IsGameOver = true;
         Debug.Log($"Game Over — Stack height: {StackCount}. {reason}");
 
@@ -205,5 +210,7 @@ public class StackGameController : MonoBehaviour
         // Stop the stack monitor routine
         if (stackMonitorRoutine != null)
             StopCoroutine(stackMonitorRoutine);
+        
+        GetComponent<SceneChanger>().ChangeScene(3);
     }
 }

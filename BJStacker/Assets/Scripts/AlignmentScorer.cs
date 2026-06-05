@@ -3,11 +3,12 @@ using UnityEngine;
 public class AlignmentScorer : MonoBehaviour
 {
     public static AlignmentScorer Instance { get; private set; }
+ 
 
     Vector2 lastReferenceXZ;
     bool hasReference;
 
-    public int TotalPoints { get; private set; }
+    public static int TotalPoints { get; private set; }
 
     int perfectStreak;
     int excellentStreak;
