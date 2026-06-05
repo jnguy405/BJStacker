@@ -17,6 +17,7 @@ public class AlignmentUI : MonoBehaviour
     Coroutine ratingCoroutine;
     Coroutine comboCoroutine;
 
+    static readonly Color ColorCombo     = new Color(0.78f, 0.6f,  1f);
     static readonly Color ColorPerfect   = new Color(1f,   0.84f, 0f);
     static readonly Color ColorExcellent = new Color(0.2f, 0.9f,  0.2f);
     static readonly Color ColorGood      = Color.white;
@@ -43,7 +44,7 @@ public class AlignmentUI : MonoBehaviour
             {
                 string tier = multiplier >= 1.5f ? "PERFECT!!!" : "Excellent!";
                 comboText.text = $"{streak}x {tier} Combo!";
-                comboText.color = GetRatingColor(rating);
+                comboText.color = ColorCombo;
                 if (comboCoroutine != null) StopCoroutine(comboCoroutine);
                 comboCoroutine = StartCoroutine(PunchAndFade(comboText));
             }
