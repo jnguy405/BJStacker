@@ -177,8 +177,11 @@ public class StackGameController : MonoBehaviour
                 continue;
 
             // If the piece is below the fall kill Y, return true
-            if (piece.transform.position.y < fallKillY)
+            Debug.Log($"Checking piece at Y={piece.transform.position.y} against kill Y={fallKillY}");
+            if (piece.transform.position.y < fallKillY){
+            Debug.Log("Piece below kill Y");
                 return true;
+            }
 
             // If the piece is tilted more than the max stack tilt degrees, return true
             float tilt = piece.GetMaxTiltDegrees();
@@ -192,9 +195,10 @@ public class StackGameController : MonoBehaviour
     public void EndGame(string reason)
     {
         // If the game is already over, return
-        if (IsGameOver)
+        if (IsGameOver) 
             return;
-
+        
+       
         IsGameOver = true;
         Debug.Log($"Game Over — Stack height: {StackCount}. {reason}");
 
@@ -205,5 +209,7 @@ public class StackGameController : MonoBehaviour
         // Stop the stack monitor routine
         if (stackMonitorRoutine != null)
             StopCoroutine(stackMonitorRoutine);
+        
+        GetComponent<SceneChanger>().ChangeScene(3);
     }
 }
