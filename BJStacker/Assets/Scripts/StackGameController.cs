@@ -220,7 +220,7 @@ public class StackGameController : MonoBehaviour
          }
         else // game ended cause player stack fell or missed drop 
         {
-            GetComponent<SceneChanger>().ChangeScene(3);
+            GetComponent<SceneChanger>().ChangeScene(2);
         }
         
     }
@@ -228,6 +228,6 @@ public class StackGameController : MonoBehaviour
         {
             BurgerTop.GetComponent<Rigidbody>().useGravity = true;
             yield return new WaitForSeconds(2f);
-            GetComponent<SceneChanger>().ChangeScene(4);
+            GetComponent<SceneChanger>().ChangeScene(3);
         }
 }
